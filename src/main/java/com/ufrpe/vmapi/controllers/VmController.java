@@ -1,16 +1,14 @@
 package com.ufrpe.vmapi.controllers;
 
 import com.ufrpe.vmapi.models.VmConfig;
-import com.ufrpe.vmapi.utils.VmService;
+import com.ufrpe.vmapi.services.VmService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.Timed;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +51,7 @@ public class VmController {
         }
     }
     @PostMapping("/start")
-    ResponseEntity<Object> starat(@RequestBody VmConfig vmConfig) {
+    ResponseEntity<Object> start(@RequestBody VmConfig vmConfig) {
         Map<String, String> response = new HashMap<String, String>();
         try {
             String message = vmService.startVm(vmConfig);
@@ -70,12 +68,14 @@ public class VmController {
 
     @GetMapping("/list")
     ResponseEntity<Object> listVms() {
+        Map<String, Object> response = new HashMap<String, Object>();
         try {
             List<String> vms = vmService.listVms();
             return ResponseEntity.ok().body(vms);
         } catch (Exception e) {
+            response.put("message", e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.status(500).body(e.getMessage());
+            return ResponseEntity.status(500).body(response);
         }
     }
 }
