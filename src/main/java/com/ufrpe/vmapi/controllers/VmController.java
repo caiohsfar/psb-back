@@ -4,16 +4,14 @@ import com.ufrpe.vmapi.models.VmConfig;
 import com.ufrpe.vmapi.services.VmService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/vms")
 public class VmController {
     VmService vmService;
 
@@ -28,6 +26,7 @@ public class VmController {
             String message = vmService.executeCreate(newVM);
             response.put("message", message);
             return ResponseEntity.ok().body(response);
+
         } catch (Exception e) {
             e.printStackTrace();
             response.put("message", e.getMessage());

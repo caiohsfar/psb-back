@@ -27,4 +27,4 @@ VBoxManage modifyvm $MACHINENAME --vrde on
 VBoxManage modifyvm $MACHINENAME --vrdemulticon on --vrdeport 10001
 
 #Start the VM
-VBoxManage startvm $MACHINENAME
+#VBoxManage startvm $MACHINENAME
